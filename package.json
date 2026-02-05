@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "api": "npx json-server --watch db.json --port 3001",
-    "start": "concurrently \"npm run api\" \"npm run dev\"",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview"
   },

@@ -3,7 +3,7 @@
 - node v24+
 - npm v11+
 - prettier (optional)
-## running the db
+## running locally
 - in order to run the mock API you simply need to run 
 ```shell
 npm run api
@@ -14,4 +14,5 @@ npm run dev
 ```
 
 **notes:**
-- the `_page` and `_order` queries don't seem to work, maybe they need to be combined with other queries, I couldn't debug it, since this was my first time using ***json-server***.
+- the `_page` and `_order` queries don't seem to work, maybe they need to be combined with other queries, I couldn't debug it, since this was my first time using.  ***json-server***.
+- removed `start` script because of dependency conflict.
