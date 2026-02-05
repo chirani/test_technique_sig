@@ -21,9 +21,7 @@ const routes = [
     name: 'CandidatureById',
     component: CandidaturesId,
     beforeEnter: ({ params }: any) => {
-      const id = Number(params.id)
-
-      if (Number.isNaN(id)) {
+      if (Number.isNaN(params.id)) {
         return { path: '/' }
       }
     },
@@ -33,9 +31,7 @@ const routes = [
     name: 'EditCandidatureById',
     component: EditCandidatureById,
     beforeEnter: ({ params }: any) => {
-      const id = Number(params.id)
-
-      if (Number.isNaN(id)) {
+      if (Number.isNaN(params.id)) {
         return { path: '/' }
       }
     },

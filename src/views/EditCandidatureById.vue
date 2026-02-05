@@ -5,6 +5,8 @@ import axios from 'axios'
 import type { Candidature } from '../components/Candidature'
 import { ref } from 'vue'
 import CandidatEdit from '../components/CandidatEdit.vue'
+import { fetchStatuts, type Statut } from '../api/statuts'
+import { ArrowLeft } from 'lucide-vue-next'
 
 const route = useRoute()
 const router = useRouter()
@@ -16,6 +18,17 @@ if (Number.isNaN(id)) {
 const loading = ref<boolean>(false)
 const error = ref<string | null>(null)
 const candidature = ref<Candidature | null>(null)
+const mesStatuts = ref<Statut[]>([])
+const statutsError = ref<string | null>(null)
+
+const preparerMesStatuts = async () => {
+  try {
+    const res = await fetchStatuts()
+    mesStatuts.value = res.data
+  } catch (err) {
+    statutsError.value = axios.isAxiosError(err) ? err.message : 'Unknown error'
+  }
+}
 
 const fetchCandidateData = async (id: typeof route.params.id) => {
   let parsedId = !Number.isNaN(id)
@@ -34,8 +47,15 @@ const fetchCandidateData = async (id: typeof route.params.id) => {
     loading.value = false
   }
 }
+
+preparerMesStatuts()
 fetchCandidateData(id)
 </script>
 <template>
-  <CandidatEdit />
+  <nav class="navbar bg-base-100 shadow-sm sticky top-0 z-20">
+    <div class="navbar-start">
+      <RouterLink to="/" class="btn btn-square btn-ghost"> <ArrowLeft /></RouterLink>
+    </div>
+  </nav>
+  <CandidatEdit v-if="candidature !== null" :candidature="candidature" :statuts="mesStatuts" />
 </template>

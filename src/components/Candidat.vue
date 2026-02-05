@@ -106,6 +106,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Candidature } from './Candidature'
+import { formatterDate } from '../utils'
 
 /* Interfaces EXACTES */
 
@@ -127,5 +128,4 @@ const salaireFormate = computed(() =>
 )
 
 /* Utils */
-const formatterDate = (date: string) => new Date(date).toLocaleDateString('fr-FR')
 </script>

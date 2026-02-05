@@ -4,3 +4,17 @@
 .main {
   @apply max-w-300 mx-auto mt-16;
 }
+.form-control {
+  @apply w-full flex flex-col;
+  .input,
+  .textarea,
+  .select {
+    @apply w-full;
+  }
+}
+tbody > * {
+  @apply font-light;
+}
+thead > * {
+  @apply font-bold;
+}

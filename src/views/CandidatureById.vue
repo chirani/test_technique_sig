@@ -12,7 +12,7 @@ const route = useRoute()
 const router = useRouter()
 const id = route.params.id
 if (Number.isNaN(id)) {
-  router.push('/')
+  router.back()
 }
 //Props
 const loading = ref<boolean>(false)
@@ -40,7 +40,7 @@ const fetchCandidateData = async (id: typeof route.params.id) => {
 fetchCandidateData(id)
 </script>
 <template>
-  <nav class="navbar shadow-sm sticky top-0">
+  <nav class="navbar bg-base-100 shadow-sm sticky top-0">
     <div class="navbar-start">
       <RouterLink to="/" class="btn btn-square btn-ghost"> <ArrowLeft /></RouterLink>
     </div>
