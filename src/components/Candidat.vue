@@ -1,3 +1,49 @@
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue'
+import type { Candidature } from './Candidature'
+import { formatterDate } from '../utils'
+import type { Statut } from '../api/statuts'
+import { updateCandidature } from '../api/candidatures'
+import axios from 'axios'
+
+/* Interfaces EXACTES */
+
+/* Props */
+const props = defineProps<{
+  candidature: Candidature
+  statuts: Statut[]
+}>()
+
+/* Computed */
+const dateFormatee = computed(() =>
+  new Date(props.candidature.dateCandidature).toLocaleDateString('fr-FR')
+)
+
+const selectedStatus = ref<string>(props.candidature.statut)
+const statusErrorMessage = ref<string | null>(null)
+
+const updateStatut = async (): Promise<void> => {
+  try {
+    await updateCandidature(props.candidature.id, {
+      ...props.candidature,
+      statut: selectedStatus.value,
+    })
+  } catch (err) {
+    statusErrorMessage.value = axios.isAxiosError(err) ? err.message : 'Unknown error'
+  }
+}
+
+const salaireFormate = computed(() =>
+  new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(props.candidature.salaireSouhaite)
+)
+watch(selectedStatus, () => {
+  updateStatut()
+})
+/* Utils */
+</script>
 <template>
   <article class="max-w-full rounded-lg border-gray-200 p-6">
     <!-- En-tête -->
@@ -6,9 +52,18 @@
         {{ candidature.nom }}
       </h2>
       <p class="text-gray-600">{{ candidature.poste }}</p>
-      <span class="inline-block rounded bg-gray-100 px-2 py-1 text-sm font-medium text-gray-700">
-        {{ candidature.statut }}
-      </span>
+
+      <select v-model="selectedStatus" class="select select-sm select-outline mt-2">
+        <option
+          v-for="status in statuts"
+          :key="status.id"
+          :style="{
+            color: status.couleur,
+          }"
+        >
+          {{ status.nom }}
+        </option>
+      </select>
     </header>
 
     <!-- Informations principales -->
@@ -102,30 +157,3 @@
     </section>
   </article>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-import type { Candidature } from './Candidature'
-import { formatterDate } from '../utils'
-
-/* Interfaces EXACTES */
-
-/* Props */
-const props = defineProps<{
-  candidature: Candidature
-}>()
-
-/* Computed */
-const dateFormatee = computed(() =>
-  new Date(props.candidature.dateCandidature).toLocaleDateString('fr-FR')
-)
-
-const salaireFormate = computed(() =>
-  new Intl.NumberFormat('fr-FR', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(props.candidature.salaireSouhaite)
-)
-
-/* Utils */
-</script>

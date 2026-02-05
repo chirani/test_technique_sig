@@ -6,6 +6,7 @@ import Candidat from '../components/Candidat.vue'
 import { fetchCandidaturesById } from '../api/candidatures'
 import axios from 'axios'
 import { ArrowLeft } from 'lucide-vue-next'
+import { fetchStatuts, type Statut } from '../api/statuts'
 
 //Params
 const route = useRoute()
@@ -18,6 +19,17 @@ if (Number.isNaN(id)) {
 const loading = ref<boolean>(false)
 const error = ref<string | null>(null)
 const candidature = ref<Candidature | null>(null)
+const mesStatuts = ref<Statut[]>([])
+const statutsError = ref<string | null>(null)
+
+const preparerMesStatuts = async () => {
+  try {
+    const res = await fetchStatuts()
+    mesStatuts.value = res.data
+  } catch (err) {
+    statutsError.value = axios.isAxiosError(err) ? err.message : 'Unknown error'
+  }
+}
 
 const fetchCandidateData = async (id: typeof route.params.id) => {
   let parsedId = !Number.isNaN(id)
@@ -36,11 +48,11 @@ const fetchCandidateData = async (id: typeof route.params.id) => {
     loading.value = false
   }
 }
-
+preparerMesStatuts()
 fetchCandidateData(id)
 </script>
 <template>
-  <nav class="navbar bg-base-100 shadow-sm sticky top-0">
+  <nav class="navbar bg-base-100 shadow-sm sticky top-0 z-40">
     <div class="navbar-start">
       <RouterLink to="/" class="btn btn-square btn-ghost"> <ArrowLeft /></RouterLink>
     </div>
@@ -58,6 +70,6 @@ fetchCandidateData(id)
   <main class="main">
     <p v-if="loading" class="text-center">Loading…</p>
     <p v-else-if="error" class="text-error">Error: {{ error }}</p>
-    <Candidat v-else v-if="candidature !== null" :candidature="candidature" />
+    <Candidat v-else v-if="candidature !== null" :candidature="candidature" :statuts="mesStatuts" />
   </main>
 </template>

@@ -4,8 +4,8 @@ import axios from 'axios'
 import type { Candidature } from '../components/Candidature'
 import {
   fetchCandidatures,
+  fetchCandidaturesByStatus,
   fetchCandidaturesOrdered,
-  searchCandidatures,
 } from '../api/candidatures'
 import { formatterDate } from '../utils'
 import { ArrowDown } from 'lucide-vue-next'
@@ -18,7 +18,6 @@ const isOrderedBydate = ref<boolean>(false)
 const mesStatuts = ref<Statut[]>([])
 const statutsError = ref<string | null>(null)
 const selectedStatus = ref<string | null>(null)
-const search = ref<string>('')
 
 const preparerCandidatures = async (): Promise<void> => {
   loading.value = true
@@ -26,18 +25,19 @@ const preparerCandidatures = async (): Promise<void> => {
 
   try {
     let data: Candidature[] = []
-
-    if (search.value.length) {
-      const response = await searchCandidatures(search.value)
+    // Toggling between ordering by date and searching by status
+    if (selectedStatus.value !== null) {
+      const response = await fetchCandidaturesByStatus(selectedStatus.value)
+      isOrderedBydate.value = false
       data = response.data
-    }
-    if (isOrderedBydate.value) {
+    } else if (isOrderedBydate.value) {
       const response = await fetchCandidaturesOrdered()
       data = response.data
     } else {
       const response = await fetchCandidatures()
       data = response.data
     }
+
     candidatures.value = data
   } catch (err) {
     candidaturesError.value = axios.isAxiosError(err) ? err.message : 'Unknown error'
@@ -59,13 +59,17 @@ const statusColors = computed<Record<string, string>>(() => {
   return Object.fromEntries(mesStatuts.value.map((statut) => [statut.nom, statut.couleur]))
 })
 
-watch([isOrderedBydate], (_value) => {
+watch([isOrderedBydate, selectedStatus], (_value) => {
   preparerCandidatures()
 })
 
 function toggleOrder() {
   isOrderedBydate.value = !isOrderedBydate.value
+  selectedStatus.value = null
 }
+watch(selectedStatus, () => {
+  console.log(selectedStatus.value)
+})
 
 preparerMesStatuts()
 preparerCandidatures()
@@ -75,7 +79,7 @@ preparerCandidatures()
   <main class="main">
     <div class="flex flex-row-reverse gap-3 p-3">
       <select v-model="selectedStatus" class="select select-sm select-outline max-w-36">
-        <option disabled selected value="null">Status</option>
+        <option selected :value="null">Status</option>
         <option
           v-for="status in mesStatuts"
           :key="status.id"

@@ -1,7 +1,7 @@
 {
   "candidatures": [
     {
-      "id": "1",
+      "id": 1,
       "nom": "Sophie Martin",
       "poste": "Développeur Full Stack",
       "statut": "En attente",
@@ -17,13 +17,13 @@
       "telephone": "+33 6 12 34 56 78",
       "cv": "https://example.com/cv/sophie-martin.pdf",
       "lettreMotivation": "Passionnée par le développement web moderne, je souhaite rejoindre votre équipe pour contribuer à des projets innovants.",
-      "salaireSouhaite": 45001,
+      "salaireSouhaite": 45000,
       "disponibilite": "Immédiate",
       "localisation": "Paris, France",
       "commentaires": []
     },
     {
-      "id": "2",
+      "id": 2,
       "nom": "Thomas Dubois",
       "poste": "Développeur Frontend",
       "statut": "Entretien RH",
@@ -52,10 +52,10 @@
       ]
     },
     {
-      "id": "3",
+      "id": 3,
       "nom": "Emma Leroy",
-      "poste": "Développeur React.js",
-      "statut": "Refusé",
+      "poste": "Développeur Vue.js",
+      "statut": "Entretien technique",
       "competences": [
         "Vue.js",
         "Nuxt.js",
@@ -88,7 +88,7 @@
       ]
     },
     {
-      "id": "4",
+      "id": 4,
       "nom": "Lucas Bernard",
       "poste": "Développeur Backend",
       "statut": "Refusé",
@@ -116,7 +116,7 @@
       ]
     },
     {
-      "id": "5",
+      "id": 5,
       "nom": "Camille Petit",
       "poste": "Développeur Full Stack",
       "statut": "Accepté",
@@ -152,7 +152,7 @@
       ]
     },
     {
-      "id": "6",
+      "id": 6,
       "nom": "Antoine Moreau",
       "poste": "Développeur Frontend",
       "statut": "En attente",
@@ -174,7 +174,7 @@
       "commentaires": []
     },
     {
-      "id": "7",
+      "id": 7,
       "nom": "Julie Girard",
       "poste": "Développeur Vue.js",
       "statut": "Entretien RH",
@@ -203,7 +203,7 @@
       ]
     },
     {
-      "id": "8",
+      "id": 8,
       "nom": "Alexandre Roux",
       "poste": "Développeur Full Stack",
       "statut": "En attente",
@@ -225,7 +225,7 @@
       "commentaires": []
     },
     {
-      "id": "9",
+      "id": 9,
       "nom": "Léa Fontaine",
       "poste": "Développeur Frontend",
       "statut": "Entretien technique",
@@ -255,7 +255,7 @@
       ]
     },
     {
-      "id": "10",
+      "id": 10,
       "nom": "Hugo Lambert",
       "poste": "Développeur Vue.js",
       "statut": "Refusé",
@@ -282,7 +282,7 @@
       ]
     },
     {
-      "id": "11",
+      "id": 11,
       "nom": "Chloé Blanchard",
       "poste": "Développeur Full Stack",
       "statut": "En attente",
@@ -304,7 +304,7 @@
       "commentaires": []
     },
     {
-      "id": "12",
+      "id": 12,
       "nom": "Maxime Garnier",
       "poste": "Développeur Frontend",
       "statut": "Entretien RH",
@@ -336,31 +336,31 @@
   ],
   "statuts": [
     {
-      "id": "1",
+      "id": 1,
       "nom": "En attente",
       "couleur": "#94a3b8",
       "ordre": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "nom": "Entretien RH",
       "couleur": "#3b82f6",
       "ordre": 2
     },
     {
-      "id": "3",
+      "id": 3,
       "nom": "Entretien technique",
       "couleur": "#f59e0b",
       "ordre": 3
     },
     {
-      "id": "4",
+      "id": 4,
       "nom": "Accepté",
       "couleur": "#10b981",
       "ordre": 4
     },
     {
-      "id": "5",
+      "id": 5,
       "nom": "Refusé",
       "couleur": "#ef4444",
       "ordre": 5
@@ -368,7 +368,7 @@
   ],
   "postes": [
     {
-      "id": "1",
+      "id": 1,
       "titre": "Développeur Vue.js",
       "description": "Poste orienté frontend avec expertise Vue.js",
       "competencesRequises": [
@@ -378,7 +378,7 @@
       ]
     },
     {
-      "id": "2",
+      "id": 2,
       "titre": "Développeur Frontend",
       "description": "Développeur frontend polyvalent",
       "competencesRequises": [
@@ -388,7 +388,7 @@
       ]
     },
     {
-      "id": "3",
+      "id": 3,
       "titre": "Développeur Full Stack",
       "description": "Développeur capable de travailler frontend et backend",
       "competencesRequises": [
@@ -398,7 +398,7 @@
       ]
     },
     {
-      "id": "4",
+      "id": 4,
       "titre": "Développeur Backend",
       "description": "Spécialiste backend et APIs",
       "competencesRequises": [
@@ -410,52 +410,52 @@
   ],
   "competences": [
     {
-      "id": "1",
+      "id": 1,
       "nom": "Vue.js",
       "categorie": "Frontend"
     },
     {
-      "id": "2",
+      "id": 2,
       "nom": "React",
       "categorie": "Frontend"
     },
     {
-      "id": "3",
+      "id": 3,
       "nom": "TypeScript",
       "categorie": "Langage"
     },
     {
-      "id": "4",
+      "id": 4,
       "nom": "Node.js",
       "categorie": "Backend"
     },
     {
-      "id": "5",
+      "id": 5,
       "nom": "Pinia",
       "categorie": "State Management"
     },
     {
-      "id": "6",
+      "id": 6,
       "nom": "Nuxt.js",
       "categorie": "Framework"
     },
     {
-      "id": "7",
+      "id": 7,
       "nom": "MongoDB",
       "categorie": "Base de données"
     },
     {
-      "id": "8",
+      "id": 8,
       "nom": "PostgreSQL",
       "categorie": "Base de données"
     },
     {
-      "id": "9",
+      "id": 9,
       "nom": "Docker",
       "categorie": "DevOps"
     },
     {
-      "id": "10",
+      "id": 10,
       "nom": "TailwindCSS",
       "categorie": "CSS Framework"
     }

@@ -17,7 +17,7 @@ const router = useRouter()
 const isUpdateLoading = ref<boolean>(false)
 const updateErrorMessage = ref<string | null>()
 
-const { handleSubmit, errors, values, resetForm, defineField } = useForm<Candidature>({
+const { errors, values, resetForm, defineField } = useForm<Candidature>({
   validationSchema: toTypedSchema(candidatureSchema),
   initialValues: props.candidature
     ? props.candidature
@@ -56,7 +56,10 @@ const handlecandidatureUpdate = async () => {
   try {
     isUpdateLoading.value = true
     const id = props.candidature?.id ?? -1
-    await updateCandidature(id + '', values)
+    await updateCandidature(id, {
+      ...values,
+      competences: values.competences.map((competence) => competence),
+    })
     router.push('/')
   } catch (err) {
     updateErrorMessage.value = axios.isAxiosError(err) ? err.message : 'Unknown error'
@@ -67,7 +70,6 @@ const handlecandidatureUpdate = async () => {
 
 const submitChanges = () => {
   handlecandidatureUpdate()
-  console.log('Hello')
 }
 </script>
 
