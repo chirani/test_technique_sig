@@ -47,14 +47,16 @@ const fetchCandidateData = async (id: typeof route.params.id) => {
     loading.value = false
   }
 }
-
+const goBack = () => {
+  router.back()
+}
 preparerMesStatuts()
 fetchCandidateData(id)
 </script>
 <template>
   <nav class="navbar bg-base-100 shadow-sm sticky top-0 z-20">
     <div class="navbar-start">
-      <RouterLink to="/" class="btn btn-square btn-ghost"> <ArrowLeft /></RouterLink>
+      <button @click="goBack" class="btn btn-square btn-ghost"><ArrowLeft /></button>
     </div>
   </nav>
   <CandidatEdit v-if="candidature !== null" :candidature="candidature" :statuts="mesStatuts" />

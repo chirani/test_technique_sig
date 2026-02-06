@@ -81,6 +81,9 @@ preparerCandidatures()
     <div class="navbar-start">
       <RouterLink to="/" class="btn btn-square btn-ghost"> <HomeIcon /></RouterLink>
     </div>
+    <div class="navbar-end">
+      <RouterLink to="/postes" class="btn btn-neutral"> Open Positions </RouterLink>
+    </div>
   </nav>
 
   <main class="main">
