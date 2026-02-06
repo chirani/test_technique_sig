@@ -110,7 +110,7 @@ watch(selectedStatus, () => {
         <li
           v-for="competence in candidature.competences"
           :key="competence"
-          class="rounded bg-gray-100 px-2 py-1 text-sm text-gray-700"
+          class="badge badge-ghost"
         >
           {{ competence }}
         </li>
