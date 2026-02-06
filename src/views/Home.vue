@@ -11,6 +11,7 @@ import { formatterDate } from '../utils'
 import { ArrowDown } from 'lucide-vue-next'
 import { fetchStatuts, type Statut } from '../api/statuts'
 import { Home as HomeIcon } from 'lucide-vue-next'
+import SwapTheme from '../components/SwapTheme.vue'
 
 const candidatures = ref<Candidature[]>([])
 const loading = ref<boolean>(false)
@@ -81,15 +82,16 @@ preparerCandidatures()
     <div class="navbar-start">
       <RouterLink to="/" class="btn btn-square btn-ghost"> <HomeIcon /></RouterLink>
     </div>
-    <div class="navbar-end">
+    <div class="navbar-end gap-5">
       <RouterLink to="/postes" class="btn btn-neutral"> Open Positions </RouterLink>
+      <SwapTheme />
     </div>
   </nav>
 
   <main class="main">
     <div class="flex flex-row-reverse gap-3 p-3">
       <select v-model="selectedStatus" class="select select-sm select-outline max-w-36">
-        <option selected :value="null">Status</option>
+        <option selected :value="null">Tous</option>
         <option
           v-for="status in mesStatuts"
           :key="status.id"

@@ -45,13 +45,13 @@ watch(selectedStatus, () => {
 /* Utils */
 </script>
 <template>
-  <article class="max-w-full rounded-lg border-gray-200 p-6">
+  <article class="max-w-full rounded-lg p-6">
     <!-- En-tête -->
     <header class="mb-4">
-      <h2 class="text-xl font-semibold text-gray-900">
+      <h2 class="text-xl font-semibold">
         {{ candidature.nom }}
       </h2>
-      <p class="text-gray-600">{{ candidature.poste }}</p>
+      <p class="text-base-content">{{ candidature.poste }}</p>
 
       <select v-model="selectedStatus" class="select select-sm select-outline mt-2">
         <option
@@ -119,33 +119,28 @@ watch(selectedStatus, () => {
 
     <!-- Documents -->
     <section class="mb-4">
-      <a
-        :href="candidature.cv"
-        target="_blank"
-        rel="noopener"
-        class="text-blue-600 hover:underline"
-      >
+      <a :href="candidature.cv" target="_blank" rel="noopener" class="text-accent hover:underline">
         📄 Voir le CV
       </a>
 
       <p class="mt-2">
         <strong>Lettre de motivation :</strong><br />
-        <span class="text-gray-700">
+        <span class="text-shadow-base-content">
           {{ candidature.lettreMotivation }}
         </span>
       </p>
     </section>
 
     <!-- Commentaires -->
-    <section v-if="candidature.commentaires.length" class="border-t border-gray-200 pt-4">
+    <section v-if="candidature.commentaires.length" class="border-t pt-4">
       <strong>Commentaires :</strong>
       <ul class="mt-2 space-y-3">
         <li
           v-for="commentaire in candidature.commentaires"
           :key="commentaire.id"
-          class="rounded bg-gray-50 p-3"
+          class="rounded opacity-60 p-3"
         >
-          <p class="text-gray-800">
+          <p>
             {{ commentaire.contenu }}
           </p>
           <p class="mt-1 text-sm text-gray-500">
