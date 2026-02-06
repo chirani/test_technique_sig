@@ -74,216 +74,209 @@ const submitChanges = () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center p-4">
-    <form class="card w-full max-w-3xl bg-base-100">
-      <div class="card-body space-y-6">
-        <h1 class="card-title text-4xl">Candidature</h1>
+  <div class="min-w-48 min-h-screen flex items-center justify-center p-4">
+    <form class="w-full max-w-3xl bg-base-100">
+      <div class="mt-8"></div>
+      <h1 class="card-title text-4xl">Candidature</h1>
 
-        <!-- Nom -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Nom</span>
-          </label>
-          <input
-            v-model="nom"
-            v-bind="nomAttrs"
-            type="text"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.nom }"
-          />
-          <span class="text-error text-sm">{{ errors.nom }}</span>
-        </div>
+      <!-- Nom -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Nom</span>
+        </label>
+        <input
+          v-model="nom"
+          v-bind="nomAttrs"
+          type="text"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.nom }"
+        />
+        <span class="text-error text-sm">{{ errors.nom }}</span>
+      </div>
 
-        <!-- Poste -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Poste</span>
-          </label>
-          <input
-            v-model="poste"
-            v-bind="posteAttrs"
-            type="text"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.poste }"
-          />
-          <span class="text-error text-sm">{{ errors.poste }}</span>
-        </div>
+      <!-- Poste -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Poste</span>
+        </label>
+        <input
+          v-model="poste"
+          v-bind="posteAttrs"
+          type="text"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.poste }"
+        />
+        <span class="text-error text-sm">{{ errors.poste }}</span>
+      </div>
 
-        <!-- Statut -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Statut</span>
-          </label>
-          <select
-            v-model="statut"
-            v-bind="statutAttrs"
-            class="select select-bordered"
-            :class="{ 'select-error': errors.statut }"
+      <!-- Statut -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Statut</span>
+        </label>
+        <select
+          v-model="statut"
+          v-bind="statutAttrs"
+          class="select select-bordered"
+          :class="{ 'select-error': errors.statut }"
+        >
+          <option disabled value="" class="bg-base-200">Select status</option>
+          <option
+            v-for="option in statuts"
+            :key="option.id"
+            :value="option.nom"
+            :style="{
+              color: option.couleur,
+            }"
           >
-            <option disabled value="" class="bg-base-200">Select status</option>
-            <option
-              v-for="option in statuts"
-              :key="option.id"
-              :value="option.nom"
-              :style="{
-                color: option.couleur,
-              }"
-            >
-              {{ option.nom }}
-            </option>
-          </select>
-          <span class="text-error text-sm">{{ errors.statut }}</span>
+            {{ option.nom }}
+          </option>
+        </select>
+        <span class="text-error text-sm">{{ errors.statut }}</span>
+      </div>
+
+      <!-- Competences -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Compétences</span>
+        </label>
+
+        <div v-for="(field, index) in competences" :key="field.key" class="flex gap-2 mb-2">
+          <input v-model="field.value" type="text" class="input input-bordered flex-1" />
+          <button type="button" class="btn btn-error btn-outline" @click="remove(index)">✕</button>
         </div>
 
-        <!-- Competences -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Compétences</span>
-          </label>
+        <button type="button" class="btn btn-sm btn-outline" @click="push([''])">
+          + Add competence
+        </button>
 
-          <div v-for="(field, index) in competences" :key="field.key" class="flex gap-2 mb-2">
-            <input v-model="field.value" type="text" class="input input-bordered flex-1" />
-            <button type="button" class="btn btn-error btn-outline" @click="remove(index)">
-              ✕
-            </button>
-          </div>
+        <span class="text-error text-sm">{{ errors.competences }}</span>
+      </div>
 
-          <button type="button" class="btn btn-sm btn-outline" @click="push([''])">
-            + Add competence
-          </button>
+      <!-- Experience -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Experience</span>
+        </label>
+        <textarea
+          v-model="experience"
+          v-bind="experienceAttrs"
+          class="textarea textarea-bordered"
+          :class="{ 'textarea-error': errors.experience }"
+        ></textarea>
+        <span class="text-error text-sm">{{ errors.experience }}</span>
+      </div>
 
-          <span class="text-error text-sm">{{ errors.competences }}</span>
-        </div>
+      <!-- Date -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Date de candidature</span>
+        </label>
+        <input
+          v-model="dateCandidature"
+          v-bind="dateAttrs"
+          type="date"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.dateCandidature }"
+        />
+        <span class="text-error text-sm">{{ errors.dateCandidature }}</span>
+      </div>
 
-        <!-- Experience -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Experience</span>
-          </label>
-          <textarea
-            v-model="experience"
-            v-bind="experienceAttrs"
-            class="textarea textarea-bordered"
-            :class="{ 'textarea-error': errors.experience }"
-          ></textarea>
-          <span class="text-error text-sm">{{ errors.experience }}</span>
-        </div>
+      <!-- Email -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Email</span>
+        </label>
+        <input
+          v-model="email"
+          v-bind="emailAttrs"
+          type="email"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.email }"
+        />
+        <span class="text-error text-sm">{{ errors.email }}</span>
+      </div>
 
-        <!-- Date -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Date de candidature</span>
-          </label>
-          <input
-            v-model="dateCandidature"
-            v-bind="dateAttrs"
-            type="date"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.dateCandidature }"
-          />
-          <span class="text-error text-sm">{{ errors.dateCandidature }}</span>
-        </div>
+      <!-- Telephone -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Téléphone</span>
+        </label>
+        <input
+          v-model="telephone"
+          v-bind="telephoneAttrs"
+          type="tel"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.telephone }"
+        />
+        <span class="text-error text-sm">{{ errors.telephone }}</span>
+      </div>
 
-        <!-- Email -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Email</span>
-          </label>
-          <input
-            v-model="email"
-            v-bind="emailAttrs"
-            type="email"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.email }"
-          />
-          <span class="text-error text-sm">{{ errors.email }}</span>
-        </div>
+      <!-- CV -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">CV (URL)</span>
+        </label>
+        <input
+          v-model="cv"
+          v-bind="cvAttrs"
+          type="url"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.salaireSouhaite }"
+        />
+        <span class="text-error text-sm">{{ errors.cv }}</span>
+      </div>
 
-        <!-- Telephone -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Téléphone</span>
-          </label>
-          <input
-            v-model="telephone"
-            v-bind="telephoneAttrs"
-            type="tel"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.telephone }"
-          />
-          <span class="text-error text-sm">{{ errors.telephone }}</span>
-        </div>
+      <!-- Salary -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Salaire souhaité</span>
+        </label>
+        <input
+          v-model.number="salaireSouhaite"
+          v-bind="salaireAttrs"
+          type="number"
+          min="0"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.salaireSouhaite }"
+        />
+        <span class="text-error text-sm">{{ errors.salaireSouhaite }}</span>
+      </div>
 
-        <!-- CV -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">CV (URL)</span>
-          </label>
-          <input
-            v-model="cv"
-            v-bind="cvAttrs"
-            type="url"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.salaireSouhaite }"
-          />
-          <span class="text-error text-sm">{{ errors.cv }}</span>
-        </div>
+      <!-- Disponibilite -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Disponibilité</span>
+        </label>
+        <input
+          v-model="disponibilite"
+          v-bind="dispoAttrs"
+          type="text"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.disponibilite }"
+        />
+        <span class="text-error text-sm">{{ errors.disponibilite }}</span>
+      </div>
 
-        <!-- Salary -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Salaire souhaité</span>
-          </label>
-          <input
-            v-model.number="salaireSouhaite"
-            v-bind="salaireAttrs"
-            type="number"
-            min="0"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.salaireSouhaite }"
-          />
-          <span class="text-error text-sm">{{ errors.salaireSouhaite }}</span>
-        </div>
+      <!-- Localisation -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Localisation</span>
+        </label>
+        <input
+          v-model="localisation"
+          v-bind="localisationAttrs"
+          type="text"
+          class="input input-bordered"
+          :class="{ 'input-error': errors.localisation }"
+        />
+        <span class="text-error text-sm">{{ errors.localisation }}</span>
+      </div>
 
-        <!-- Disponibilite -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Disponibilité</span>
-          </label>
-          <input
-            v-model="disponibilite"
-            v-bind="dispoAttrs"
-            type="text"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.disponibilite }"
-          />
-          <span class="text-error text-sm">{{ errors.disponibilite }}</span>
-        </div>
-
-        <!-- Localisation -->
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Localisation</span>
-          </label>
-          <input
-            v-model="localisation"
-            v-bind="localisationAttrs"
-            type="text"
-            class="input input-bordered"
-            :class="{ 'input-error': errors.localisation }"
-          />
-          <span class="text-error text-sm">{{ errors.localisation }}</span>
-        </div>
-
-        <!-- Submit -->
-        <div class="card-actions justify-end gap-3">
-          <button v-on:click="() => resetForm()" type="button" class="btn btn-outline">
-            Reset
-          </button>
-          <button @click="submitChanges" type="button" class="btn btn-primary">
-            Submit Updates
-          </button>
-        </div>
+      <!-- Submit -->
+      <div class="card-actions justify-end gap-3">
+        <button v-on:click="() => resetForm()" type="button" class="btn btn-outline">Reset</button>
+        <button @click="submitChanges" type="button" class="btn btn-primary">Submit Updates</button>
       </div>
     </form>
   </div>
