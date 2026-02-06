@@ -4,7 +4,7 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { candidatureSchema } from './candidatureSchema'
 import type { Candidature } from '../components/Candidature'
 import { type Statut } from '../api/statuts'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { updateCandidature } from '../api/candidatures'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
@@ -49,7 +49,7 @@ const [cv, cvAttrs] = defineField('cv')
 const [salaireSouhaite, salaireAttrs] = defineField('salaireSouhaite')
 const [disponibilite, dispoAttrs] = defineField('disponibilite')
 const [localisation, localisationAttrs] = defineField('localisation')
-const { fields: competences, remove, push } = useFieldArray('competences')
+const { fields: competences, remove, push } = useFieldArray<string[]>('competences')
 
 const handlecandidatureUpdate = async () => {
   if (props.candidature === null) return
@@ -142,17 +142,13 @@ const submitChanges = () => {
           </label>
 
           <div v-for="(field, index) in competences" :key="field.key" class="flex gap-2 mb-2">
-            <input
-              v-model="values.competences[index]"
-              type="text"
-              class="input input-bordered flex-1"
-            />
+            <input v-model="field.value" type="text" class="input input-bordered flex-1" />
             <button type="button" class="btn btn-error btn-outline" @click="remove(index)">
               ✕
             </button>
           </div>
 
-          <button type="button" class="btn btn-sm btn-outline" @click="push('')">
+          <button type="button" class="btn btn-sm btn-outline" @click="push([''])">
             + Add competence
           </button>
 
