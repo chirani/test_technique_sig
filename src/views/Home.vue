@@ -10,6 +10,7 @@ import {
 import { formatterDate } from '../utils'
 import { ArrowDown } from 'lucide-vue-next'
 import { fetchStatuts, type Statut } from '../api/statuts'
+import { Home as HomeIcon } from 'lucide-vue-next'
 
 const candidatures = ref<Candidature[]>([])
 const loading = ref<boolean>(false)
@@ -76,6 +77,12 @@ preparerCandidatures()
 </script>
 
 <template>
+  <nav class="navbar bg-base-100 shadow-sm sticky top-0 z-20">
+    <div class="navbar-start">
+      <RouterLink to="/" class="btn btn-square btn-ghost"> <HomeIcon /></RouterLink>
+    </div>
+  </nav>
+
   <main class="main">
     <div class="flex flex-row-reverse gap-3 p-3">
       <select v-model="selectedStatus" class="select select-sm select-outline max-w-36">
