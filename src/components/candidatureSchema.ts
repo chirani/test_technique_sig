@@ -11,7 +11,7 @@ export const candidatureSchema = z.object({
   dateCandidature: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: 'Invalid date format',
   }),
-  email: z.email('Invalid email'),
+  email: z.string().email('Invalid email'),
   telephone: z.string().min(1, 'Telephone is required'),
   cv: z.string().url('CV must be a valid URL'),
   lettreMotivation: z.string().min(1, 'Lettre de motivation required'),
