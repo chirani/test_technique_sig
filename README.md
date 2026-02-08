@@ -24,4 +24,4 @@ npm run dev
 - the `_page` and `_order` queries don't seem to work, maybe they need to be combined with other queries, I couldn't debug it, since this was my first time using.  ***json-server***.
 - removed `start` script because of dependency conflict.
 ## Showcase Video
-[Video Show Case]((https://github.com/chirani/test_technique_sig/blob/main/showcase1.mp4))
+[Video Show Case](https://github.com/chirani/test_technique_sig/blob/main/showcase1.mp4)
